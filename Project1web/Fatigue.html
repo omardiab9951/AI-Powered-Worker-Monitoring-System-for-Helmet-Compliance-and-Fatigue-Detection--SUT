@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Fatigue Detection — SUT</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" href="assets/favicon.png" sizes="256x256">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="assets/site.webmanifest">
+
+</head>
+<body>
+    <div id="sidebarOverlay"></div>
+
+  <div class="page-simple">
+    <header class="mini-header">
+      <a href="index.html" class="back">← Home</a>
+      <h1>AI Fatigue Detection</h1>
+    </header>
+
+    <main class="demo-area">
+      <section class="demo-left">
+        <h2>Fatigue detection (UI demo)</h2>
+        <p class="lead">This demo shows the user interface for detecting signs of fatigue (eye closure, yawning, head nodding). Replace the simulated detector in <code>app.js</code> with your model for real inference.</p>
+
+        <div class="controls">
+          <label class="btn">Upload Image <input id="fileFat" type="file" accept="image/*" style="display:none"></label>
+          <button id="camFat" class="btn">Use Camera</button>
+          <button id="runFat" class="btn primary">Run Detection</button>
+          <button id="clearFat" class="btn outline">Clear</button>
+        </div>
+
+        <div class="viewer card" id="viewerWrapFat">
+          <!-- Default preview image (from uploaded assets) -->
+          <img id="previewFat" src="/mnt/data/Screenshot 2025-11-26 002533.png" alt="fatigue preview" class="preview-img">
+          <video id="videoFat" autoplay playsinline style="display:none"></video>
+          <canvas id="overlayFat" class="overlay" aria-hidden="true"></canvas>
+        </div>
+
+        <div class="notes">
+          <p><strong>Model:</strong> <em>SUT El Sewedy University DataSet (fatigue subset)</em></p>
+          <p class="muted">Tip: For production, run the model on each frame, compute fatigue scores over time, and trigger alerts when thresholds are exceeded.</p>
+        </div>
+      </section>
+
+      <aside class="demo-right">
+        <div class="card">
+          <h3>Detection Summary</h3>
+          <div class="stat"><span>Latest:</span><strong id="latestFat">—</strong></div>
+          <div class="stat"><span>Events:</span><strong id="countFat">0</strong></div>
+          <div class="stat"><span>Window:</span><strong>5s rolling</strong></div>
+        </div>
+
+        <div class="card logs">
+          <h4>Logs</h4>
+          <div id="logAreaFat">No logs yet.</div>
+        </div>
+
+        <div class="card">
+          <h4>How it works</h4>
+          <ol>
+            <li>Capture frames from camera or upload.</li>
+            <li>Run model to detect eyes/mouth and compute PERCLOS / yawning score.</li>
+            <li>Aggregate scores in sliding window and raise an alert if threshold crossed.</li>
+          </ol>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="mini-footer">This page is a UI demo. For production, integrate the inference pipeline and test on your cameras.</footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
