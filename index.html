@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Vigilance Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 Driver Vigilance Detection System</h1>
+        
+        <!-- API URL Configuration -->
+        <div class="config-section">
+            <label for="apiUrl">API URL (from Colab):</label>
+            <input type="text" id="apiUrl" placeholder="https://your-url.ngrok-free.dev" value="https://ruefully-uncusped-mavis.ngrok-free.dev">
+            <button onclick="testConnection()">Test Connection</button>
+            <span id="connectionStatus"></span>
+        </div>
+
+        <!-- Webcam Section -->
+        <div class="section">
+            <h2>📹 Real-Time Webcam Detection</h2>
+            <video id="webcam" autoplay playsinline></video>
+            <canvas id="canvas" style="display:none;"></canvas>
+            <div class="controls">
+                <button id="startWebcam" onclick="startWebcam()">Start Webcam</button>
+                <button id="stopWebcam" onclick="stopWebcam()" disabled>Stop Webcam</button>
+                <button id="captureBtn" onclick="captureAndPredict()" disabled>Capture & Analyze</button>
+            </div>
+            <div class="toggle">
+                <label>
+                    <input type="checkbox" id="autoDetect"> 
+                    Auto-detect (every 2 seconds)
+                </label>
+            </div>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="section">
+            <h2>📤 Upload Image</h2>
+            <input type="file" id="imageUpload" accept="image/*" onchange="previewImage()">
+            <div id="preview"></div>
+            <button onclick="uploadAndPredict()" id="uploadBtn" disabled>Analyze Image</button>
+        </div>
+
+        <!-- Results Section -->
+        <div class="section results" id="results" style="display:none;">
+            <h2>📊 Detection Results</h2>
+            <div class="result-card">
+                <h3>Status: <span id="statusLabel"></span></h3>
+                <div class="confidence-bar">
+                    <div id="confidenceBar"></div>
+                </div>
+                <p>Confidence: <strong id="confidence"></strong></p>
+                
+                <div class="probabilities">
+                    <h4>Class Probabilities:</h4>
+                    <div id="probsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
